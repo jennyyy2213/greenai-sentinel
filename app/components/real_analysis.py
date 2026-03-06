@@ -1,12 +1,16 @@
-import xarray as xr
 import numpy as np
+import streamlit as st
+import xarray as xr
 
-DATA_PATH = "data/raw/data_stream-oper_stepType-instant.nc"
+
+@st.cache_resource
+def load_dataset():
+    return xr.open_dataset("data/raw/data_stream-oper_stepType-instant.nc")
 
 
 def analyze_location(lat, lon):
 
-    ds = xr.open_dataset(DATA_PATH)
+    ds = load_dataset()
 
     temp = ds["t2m"] - 273.15
 
