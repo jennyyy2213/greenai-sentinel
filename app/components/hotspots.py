@@ -1,22 +1,34 @@
 import streamlit as st
+import pandas as pd
 
 
 def hotspot_panel():
 
-    st.subheader("🔥 Global Climate Risk Hotspots")
+    st.header("🔥 Global Climate Risk Hotspots")
 
-    hotspots = [
-        ("Arctic", "High", "Rapid ice loss detected"),
-        ("Amazon Basin", "Moderate", "Forest moisture decline"),
-        ("Antarctica", "High", "Ice shelf instability signals"),
-        ("North Atlantic", "Watch", "Circulation weakening signals"),
-        ("Coral Triangle", "Moderate", "Ocean heat stress rising")
-    ]
+    data = {
+        "Region": [
+            "Indian Monsoon Zone",
+            "Amazon Rainforest",
+            "Arctic Sea Ice",
+            "Coral Triangle",
+            "West Antarctic Ice Sheet"
+        ],
+        "Risk Score": [0.42, 0.68, 0.74, 0.51, 0.63],
+        "Status": [
+            "Watch",
+            "Elevated",
+            "High Risk",
+            "Watch",
+            "Elevated"
+        ]
+    }
 
-    for region, risk, note in hotspots:
+    df = pd.DataFrame(data)
 
-        col1, col2, col3 = st.columns([2, 1, 3])
+    st.dataframe(df, use_container_width=True)
 
-        col1.write(region)
-        col2.write(risk)
-        col3.write(note)
+    st.write("""
+    AI ranks regions based on instability indicators derived from climate signals.
+    Higher scores indicate approaching tipping behavior.
+    """)
